@@ -515,8 +515,9 @@ def make_matching_plot_fast(image0, image1, kpts0, kpts1, mkpts0,
         cv2.line(out, (x0, y0), (x1 + margin + W0, y1),
                  color=c, thickness=1, lineType=cv2.LINE_AA)
         # display line end-points as circles
-        cv2.circle(out, (x0, y0), 2, c, -1, lineType=cv2.LINE_AA)
-        cv2.circle(out, (x1 + margin + W0, y1), 2, c, -1,
+        circle_radius = 5 # 2
+        cv2.circle(out, (x0, y0), circle_radius, c, -1, lineType=cv2.LINE_AA)
+        cv2.circle(out, (x1 + margin + W0, y1), circle_radius, c, -1,
                    lineType=cv2.LINE_AA)
 
     # Scale factor for consistent visualization across scales.

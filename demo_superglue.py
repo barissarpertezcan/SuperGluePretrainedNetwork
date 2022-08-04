@@ -147,6 +147,11 @@ if __name__ == '__main__':
     matching = Matching(config).eval().to(device)
     keys = ['keypoints', 'scores', 'descriptors']
 
+    print("-" * 100)
+    print("image_glob:", opt.image_glob)
+    print("-" * 100)
+
+
     vs = VideoStreamer(opt.input, opt.resize, opt.skip,
                        opt.image_glob, opt.max_length)
     frame, ret = vs.next_frame()
