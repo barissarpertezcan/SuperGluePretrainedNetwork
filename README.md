@@ -1,3 +1,10 @@
+# What I modified/added in SuperGlue ?
+* I added source_img option in the argument parser that allows the user to add a source image so that features are going to be found between the specified source img and target image. Also, I added save_video option that allows users to save results as video.
+
+* I modified demo_superglue code to a function "video" in video.py and created the function "frame_matcher_stand_alone" in frame_matching.py that can match features between given 2 images.
+
+* By using matched features, I find the homography matrix between images and corresponding coordinates of the source image in the target image by using compute_homography_filter_outliers and object_tracker functions in utils.py, which allows me to perform object detection.
+
 <img src="assets/magicleap.png" width="240">
 
 ### Research @ Magic Leap (CVPR 2020, Oral)

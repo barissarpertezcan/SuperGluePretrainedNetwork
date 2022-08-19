@@ -58,11 +58,24 @@ cv2.waitKey(0)
 # cv2.waitKey(0)
 """
 
+"""
 img = cv2.imread("source_img/raw_imgs/mybook.jpeg")
 img = cv2.resize(img, (640, 480), cv2.INTER_AREA)
 print(img.shape)
 cv2.imshow("mybook", img)
 cv2.imwrite("source_img/mybook.png", img)
 cv2.waitKey(0)
+"""
 
 # img = cv2.resize(img, (300, 500), cv2.INTER_AREA)
+
+img = cv2.imread("source_img/mybook.png", 0)
+print(img.shape)
+cv2.imshow("img", img)
+img = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
+cv2.circle(img, (50, 50), 5, (255, 0, 0), 2)
+img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+cv2.imshow("img_back", img)
+print(img.shape)
+
+cv2.waitKey(0)

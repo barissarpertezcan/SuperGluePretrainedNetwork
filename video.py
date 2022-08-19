@@ -10,7 +10,7 @@ from models.utils import (AverageTimer, VideoStreamer,
 from utils import object_tracker, compute_homography_filter_outliers
 from frame_matching import frame_matcher
 
-def Video(input = "0", source_img = None, resize_source = [200, 200], output_dir = None, image_glob = ['*.png', '*.jpg', '*.jpeg'], skip = 1, max_length = 1000000, resize = [640, 480], weight_type = "indoor", max_keypoints = -1, keypoint_threshold = 0.005, nms_radius = 4, sinkhorn_iterations = 4, match_threshold = 0.7, show_keypoints = True, no_display = False, force_cpu = False):
+def Video(input = "0", save_video = False, source_img = None, resize_source = [200, 200], output_dir = None, image_glob = ['*.png', '*.jpg', '*.jpeg'], skip = 1, max_length = 1000000, resize = [640, 480], weight_type = "indoor", max_keypoints = -1, keypoint_threshold = 0.005, nms_radius = 4, sinkhorn_iterations = 4, match_threshold = 0.7, show_keypoints = True, no_display = False, force_cpu = False):
     if len(resize) == 2 and resize[1] == -1:
         resize = resize[0:1]
     if len(resize) == 2:
@@ -81,6 +81,10 @@ def Video(input = "0", source_img = None, resize_source = [200, 200], output_dir
 
     timer = AverageTimer()
 
+    # Define the codec and create VideoWriter object
+    fourcc = cv2.VideoWriter_fourcc(*'XVID')
+    video_writer = cv2.VideoWriter('results/output.avi', fourcc, 20.0, (640,  480))
+
     while True:
         frame, ret = vs.next_frame()
         if not ret:
@@ -99,7 +103,7 @@ def Video(input = "0", source_img = None, resize_source = [200, 200], output_dir
         # if there are enough matches to compute homography, draw the borders of the object that we try to match
         if source_img is not None and len(mkpts0) >= 4:
             M, mkpts0, mkpts1 = compute_homography_filter_outliers(mkpts0, mkpts1)
-            object_tracker(frame, M, top_left, top_right, bottom_left, bottom_right)
+            frame = object_tracker(frame, M, top_left, top_right, bottom_left, bottom_right)
             
         text = [
             'SuperGlue',
@@ -149,6 +153,11 @@ def Video(input = "0", source_img = None, resize_source = [200, 200], output_dir
                     matching.superglue.config['match_threshold']))
             elif key == 'k':
                 show_keypoints = not show_keypoints
+
+        if save_video:
+            frame = cv2.cvtColor(frame, cv2.COLOR_GRAY2BGR)
+            # write the output frame
+            video_writer.write(frame)
 
         timer.update('viz')
         timer.print()

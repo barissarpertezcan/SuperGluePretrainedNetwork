@@ -44,18 +44,6 @@
 # --------------------------------------------------------------------*/
 # %BANNER_END%
 
-"""
-from pathlib import Path
-import argparse
-import cv2
-import matplotlib.cm as cm
-import torch
-
-from models.matching import Matching
-from models.utils import (AverageTimer, VideoStreamer,
-                          make_matching_plot_fast, frame2tensor)
-"""
-
 import argparse
 import torch
 from video import Video
@@ -73,7 +61,10 @@ if __name__ == '__main__':
              'or path to an image directory or movie file')
     parser.add_argument(
     '--source_img', type=str, default=None,
-    help='The image that wanted to ensure match')
+        help='The image that wanted to ensure match')
+    parser.add_argument(
+        '--save_video', action='store_true',
+        help='Save as video')
     parser.add_argument(
         '--resize_source', type=int, nargs='+', default=[200, 200],
         help='Resize the source image by width and height respectively')
@@ -130,5 +121,5 @@ if __name__ == '__main__':
     opt = parser.parse_args()
     print(opt)
 
-    Video(opt.input, opt.source_img, opt.resize_source, opt.output_dir, opt.image_glob, opt.skip, opt.max_length, opt.resize, opt.superglue, opt.max_keypoints, opt.keypoint_threshold, opt.nms_radius, opt.sinkhorn_iterations, opt.match_threshold, opt.show_keypoints, opt.no_display, opt.force_cpu)
+    Video(opt.input, opt.save_video, opt.source_img, opt.resize_source, opt.output_dir, opt.image_glob, opt.skip, opt.max_length, opt.resize, opt.superglue, opt.max_keypoints, opt.keypoint_threshold, opt.nms_radius, opt.sinkhorn_iterations, opt.match_threshold, opt.show_keypoints, opt.no_display, opt.force_cpu)
     # frame_matcher_stand_alone("source_img/bottle1.png", "source_img/bottle2.png", match_threshold=0.1) # , output_dir="/home/sarper/Desktop/SuperGluePretrainedNetwork/source_img/img_out"

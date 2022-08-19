@@ -54,8 +54,8 @@ def frame_matcher_stand_alone(source_img, target_img, resize_source = [640, 480]
 
     # added
     h, w = frame.shape
-    # top_left, top_right, bottom_left, bottom_right = (0, 0), (w-1, 0), (0, h-1), (w-1, h-1)
-    top_left, top_right, bottom_left, bottom_right = (104, 21), (560, 25), (132, 416), (545, 432) # erikli source
+    top_left, top_right, bottom_left, bottom_right = (0, 0), (w-1, 0), (0, h-1), (w-1, h-1)
+    # top_left, top_right, bottom_left, bottom_right = (104, 21), (560, 25), (132, 416), (545, 432) # erikli source
     # top_left, top_right, bottom_left, bottom_right = (142, 56), (525, 75), (52, 420), (543, 439) # book source
 
     frame = target_img
